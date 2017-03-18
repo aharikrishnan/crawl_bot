@@ -8,6 +8,10 @@
 import scrapy
 
 
+class EbayBrowseNodeItem(scrapy.Item):
+    uid = scrapy.Field()
+    data = scrapy.Field()
+
 class CrawlBotItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()

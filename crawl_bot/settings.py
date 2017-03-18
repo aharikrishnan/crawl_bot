@@ -14,6 +14,9 @@ BOT_NAME = 'crawl_bot'
 SPIDER_MODULES = ['crawl_bot.spiders']
 NEWSPIDER_MODULE = 'crawl_bot.spiders'
 
+MONGO_URI = "mongodb://localhost:27017"
+MONGO_DATABASE = "ebay_staging"
+MONGO_COLLECTION = "browse_node"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawl_bot (+http://www.yourdomain.com)'
@@ -52,9 +55,9 @@ ROBOTSTXT_OBEY = False
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'crawl_bot.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'crawl_bot.middlewares.IgnoreCrawledMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -64,9 +67,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'crawl_bot.pipelines.CrawlBotPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    'crawl_bot.pipelines.MongoPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
