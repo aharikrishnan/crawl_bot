@@ -1,12 +1,22 @@
-import scrapy
-import time
 import json
+import time
+
+import scrapy
 
 from crawl_bot.items import EbayBrowseNodeItem
 
 
 class EbayBrowseNodeSpider(scrapy.Spider):
     name = "ebay-browse-node"
+    custom_settings = {
+        'DOWNLOADER_MIDDLEWARES': {
+            'crawl_bot.middlewares.IgnoreCrawledMiddleware': 543,
+        },
+
+        'ITEM_PIPELINES': {
+            'crawl_bot.pipelines.MongoPipeline': 300,
+        }
+    }
 
     def start_requests(self):
         yield self.enqueue_category("-1")
@@ -15,7 +25,7 @@ class EbayBrowseNodeSpider(scrapy.Spider):
         json_payload = json.loads(response.body)
         sub_cat_ids = [
             cat['CategoryID'] for cat in json_payload['CategoryArray']['Category'] if cat['LeafCategory'] != True
-        ]
+            ]
         item = EbayBrowseNodeItem()
         item['uid'] = response.meta['uid']
         item['data'] = json_payload

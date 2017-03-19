@@ -6,12 +6,13 @@
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 import json
+
 import pymongo
 from scrapy import signals
-from scrapy.exceptions import IgnoreRequest
-from scrapy.http import Response, TextResponse
+from scrapy.http import TextResponse
 
 from crawl import Crawl
+
 
 class CrawlBotSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -60,10 +61,11 @@ class CrawlBotSpiderMiddleware(object):
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
+#
+# ignore files that are already crawled in DB using UID
 
 
 class IgnoreCrawledMiddleware(object):
-
     def __init__(self, uri, db_name, collection):
         self.uri = uri
         self.db_name = db_name
@@ -73,22 +75,21 @@ class IgnoreCrawledMiddleware(object):
     @classmethod
     def from_crawler(cls, crawler):
         o = cls(uri=crawler.settings.get('MONGO_URI'),
-                   db_name=crawler.settings.get('MONGO_DATABASE'),
-                   collection=crawler.settings.get('MONGO_COLLECTION'))
+                db_name=crawler.settings.get('MONGO_DATABASE'),
+                collection=crawler.settings.get('MONGO_COLLECTION'))
         crawler.signals.connect(o.spider_opened, signal=signals.spider_opened)
         crawler.signals.connect(o.spider_closed, signal=signals.spider_closed)
         return o
-
 
     def process_request(self, request, spider):
         uid = request.meta['uid']
         crawl = Crawl.get_crawl_by_uid(uid, database=self.database, collection=self.collection)
         if crawl is not None:
-          reason = "$$$$$$$$ Crawl exists: ignoring crawl request"
-          print(reason)
-          # raise IgnoreRequest(reason)
-          body = json.dumps(crawl["data"])
-          return TextResponse(url=request.url, body=body, request=request)
+            reason = "$$$$$$$$ Crawl exists: ignoring crawl request"
+            print(reason)
+            # raise IgnoreRequest(reason)
+            body = json.dumps(crawl["data"])
+            return TextResponse(url=request.url, body=body, request=request)
 
     def spider_opened(self, spider):
         self.client = pymongo.MongoClient(self.uri)
@@ -96,4 +97,4 @@ class IgnoreCrawledMiddleware(object):
 
     def spider_closed(self, spider):
         if self.client is not None:
-          self.client.close()
+            self.client.close()

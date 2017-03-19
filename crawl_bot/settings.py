@@ -54,10 +54,10 @@ ROBOTSTXT_OBEY = False
 #}
 
 # Enable or disable downloader middlewares
-# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'crawl_bot.middlewares.IgnoreCrawledMiddleware': 543,
-}
+# # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
+# DOWNLOADER_MIDDLEWARES = {
+#     'crawl_bot.middlewares.IgnoreCrawledMiddleware': 543,
+# }
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
@@ -67,9 +67,9 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-    'crawl_bot.pipelines.MongoPipeline': 300,
-}
+# ITEM_PIPELINES = {
+#     'crawl_bot.pipelines.MongoPipeline': 300,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
