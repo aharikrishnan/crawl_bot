@@ -6,7 +6,7 @@ from scrapy.exceptions import DropItem
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from crawl import Crawl
+from crawl_utils import Crawl
 
 
 class CrawlBotPipeline(object):

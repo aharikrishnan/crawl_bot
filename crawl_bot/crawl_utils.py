@@ -1,3 +1,5 @@
+import pymongo
+
 class Crawl(object):
     @classmethod
     def get_crawl_by_uid(cls, uid, database, collection):
@@ -10,10 +12,10 @@ class Crawl(object):
         return row is not None
 
     @classmethod
-    def open_connection(cls):
-        # Yet to implement
-        return None
+    def open_connection(cls, uri):
+        conn = pymongo.MongoClient(uri)
+        return conn
 
-    def close_connection(cls):
+    def close_connection(cls, conn):
         # Yet to implement
-        return None
+        conn.close()

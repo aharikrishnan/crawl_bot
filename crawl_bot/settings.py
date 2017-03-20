@@ -16,7 +16,9 @@ NEWSPIDER_MODULE = 'crawl_bot.spiders'
 
 MONGO_URI = "mongodb://localhost:27017"
 MONGO_DATABASE = "ebay_staging"
-MONGO_COLLECTION = "browse_node"
+MONGO_COLLECTION = "browse_node_crawl"
+
+MONGO_BROWSE_NODE = "browse_node"
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'crawl_bot (+http://www.yourdomain.com)'

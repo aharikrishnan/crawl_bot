@@ -11,7 +11,7 @@ import pymongo
 from scrapy import signals
 from scrapy.http import TextResponse
 
-from crawl import Crawl
+from crawl_utils import Crawl
 
 
 class CrawlBotSpiderMiddleware(object):
