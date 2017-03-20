@@ -1,3 +1,4 @@
+import pymongo
 from scrapy.utils.project import get_project_settings
 from crawl_bot.crawl_utils import Crawl
 
@@ -16,7 +17,11 @@ def parse_browse_nodes():
     docs = database[collection].find()
     for doc in docs:
         bns = [get_browse_node(cat) for cat in doc['data']['CategoryArray']['Category']]
-        bn_docs.insert_many(bns)
+        for bn in bns:
+            try:
+                bn_docs.insert(bn)
+            except pymongo.errors.DuplicateKeyError, e:
+                print("EEEEEEEEE KEY ERROR"+ str(e))
 
 
 def get_browse_node(cat):

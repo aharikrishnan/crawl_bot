@@ -22,7 +22,8 @@ class EbayBrowseNodeSpider(scrapy.Spider):
         yield self.enqueue_category("-1")
 
     def parse(self, response):
-        json_payload = json.loads(response.body)
+        json_payload = json.loads(response.body)        
+        self.write_to_file(response)
         sub_cat_ids = [
             cat['CategoryID'] for cat in json_payload['CategoryArray']['Category'] if cat['LeafCategory'] != True
             ]
@@ -35,9 +36,12 @@ class EbayBrowseNodeSpider(scrapy.Spider):
             yield self.enqueue_category(sub_cat_id)
 
     def enqueue_category(self, cat_id):
-        url = "http://open.api.sandbox.ebay.com/shopping"
+        # url = self.settings['EBAY_STAGING_SHOPPING_API_ENDPOINT']
+        url = self.settings['EBAY_SHOPPING_API_ENDPOINT']
+        # appid = self.settings.get('EBAY_STAGING_APP_ID')
+        appid = self.settings['EBAY_APP_ID']
         basic_params = {
-            "appid": "HariA-scarlet-SBX-2bed4d450-767b52f9",
+            "appid": appid,
             "siteid": "0",
             "callname": "GetCategoryInfo",
             "version": "863",
