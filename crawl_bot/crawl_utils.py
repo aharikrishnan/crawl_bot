@@ -4,6 +4,7 @@ import pandas
 class Crawl(object):
     @classmethod
     def get_crawl_by_uid(cls, uid, database, collection):
+	print("Checking for uid -> {0}".format(uid))
         row = database[collection].find_one({"uid": str(uid)})
         return row
 

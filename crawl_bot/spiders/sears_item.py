@@ -17,7 +17,8 @@ class SearsItemSpider(scrapy.Spider):
         'ITEM_PIPELINES': {
             'crawl_bot.pipelines.MongoPipeline': 300,
         },
-        'MONGO_COLLECTION': 'sears_items_crawl',
+	'MONGO_DATABASE' : "sears",
+        'MONGO_COLLECTION': 'items_crawl'
     }
     def __init__(self, in_file=None, *args, **kwargs):
         super(SearsItemSpider, self).__init__(*args, **kwargs)

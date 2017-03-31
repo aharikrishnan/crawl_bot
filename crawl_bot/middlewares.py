@@ -93,6 +93,7 @@ class IgnoreCrawledMiddleware(object):
 
     def spider_opened(self, spider):
         self.client = pymongo.MongoClient(self.uri)
+	print("Database: {0}, Collection: {1}".format(self.db_name, self.collection))
         self.database = self.client[self.db_name]
 
     def spider_closed(self, spider):
