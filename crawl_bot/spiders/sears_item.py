@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import scrapy
-from crawl_bot.items import EbayItem
+from crawl_bot.items import SearsItem
 
 
 class SearsItemSpider(scrapy.Spider):
