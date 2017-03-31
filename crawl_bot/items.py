@@ -13,3 +13,4 @@ class CrawlBotItem(scrapy.Item):
 
 EbayBrowseNodeItem = CrawlBotItem
 EbayItem = CrawlBotItem
+SearsItem = CrawlBotItem
