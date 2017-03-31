@@ -30,12 +30,6 @@ class SearsItemSpider(scrapy.Spider):
         return 1
 
     def start_requests(self):
-        # warmup = scrapy.Request('http://www.sears.com/appliances-microwaves-over-the-range-microwaves/b-1020309?pageNum=2', meta={'cookiejar': self.cookie_id})
-        warmup = scrapy.Request(
-            'http://www.sears.com/appliances-microwaves-over-the-range-microwaves/b-1020309?pageNum=2'
-        )
-        warmup.meta['skip'] = True
-        yield warmup
         headers = {
             'Accept-Encoding':
             'gzip, deflate, sdch',
