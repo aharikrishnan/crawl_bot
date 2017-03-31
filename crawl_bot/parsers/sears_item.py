@@ -27,14 +27,15 @@ def parse_items():
                   except pymongo.errors.DuplicateKeyError, e:
                       print("EEEEEEEEE KEY ERROR" + str(e))
         except:
+            print("Erro")
             items = []
 
 def get_item(node):
     record = {}
-    if not (("data" in rj) and ("product" in rj["data"])):
-        print rj
+    if not (("data" in node) and ("product" in node["data"])):
+        print node
         return None
-    d = rj["data"]
+    d = node["data"]
     p = d["product"]
     record = {
         'bn': d["productmapping"],
