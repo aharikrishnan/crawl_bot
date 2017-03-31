@@ -148,7 +148,6 @@ class SearsItemSpider(scrapy.Spider):
 
     def parse(self, response):
         if 'skip' not in response.meta:
-            print(response.body)
             try:
                 json_payload = json.loads(response.body)
                 item = SearsItem()
@@ -156,4 +155,5 @@ class SearsItemSpider(scrapy.Spider):
                 item['data'] = json_payload
                 yield item
             except:
+                print("Error :/")
                 pass
