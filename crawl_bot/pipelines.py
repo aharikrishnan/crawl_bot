@@ -36,6 +36,7 @@ class MongoPipeline(object):
         self.client.close()
 
     def process_item(self, item, spider):
+      print("Database: {0}, Collection: {1}".format(self.db_name, self.collection))
       if not Crawl.is_crawled(item['uid'], database=self.database, collection=self.collection):
           self.database[self.collection].insert(dict(item))
           return item

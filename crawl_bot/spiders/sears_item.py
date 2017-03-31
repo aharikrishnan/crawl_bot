@@ -139,7 +139,7 @@ class SearsItemSpider(scrapy.Spider):
                 uid = "{0}-{1}-{2}".format('s', 'p', sin)
                 print(url)
                 print(uid)
-                request = scrapy.Request(url, headers=headers, cookies=cookies)
+                request = scrapy.Request(url, headers=headers, cookies=cookies, callback=self.parse)
                 # request.meta['cookiejar'] = self.cookie_id
                 request.meta['uid'] = uid
                 yield request
